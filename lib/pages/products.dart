@@ -13,6 +13,13 @@ class Products extends StatelessWidget {
       ),
       child: ListView(
         children: [
+          const Text(
+            'CATEGORIES',
+            style: TextStyle(fontSize: 30),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
           Row(
             children: [
               ProductsContainer(
@@ -57,7 +64,7 @@ class Products extends StatelessWidget {
               ProductsContainer(
                 image: 'assets/soda.png',
                 title: 'SODA',
-              )
+              ),
             ],
           )
         ],

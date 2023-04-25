@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "605768864743",
+    "project_id": "food-store-web-app",
+    "storage_bucket": "food-store-web-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605768864743:android:eddd2f969559e3c01ce342",
+        "android_client_info": {
+          "package_name": "com.example.fullstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605768864743-il37dk06457qnptr9g0mbeceuvvbi91n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-cmzWcUzmRmpw9m1RF9cBf9a1SCWsLyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605768864743-il37dk06457qnptr9g0mbeceuvvbi91n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
