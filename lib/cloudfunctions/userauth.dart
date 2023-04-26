@@ -3,10 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fullstore/models/usermodel.dart';
 
 class UserAuthentication {
+  static FirebaseFirestore get firestore => FirebaseFirestore.instance;
+  static FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
+
   static Future<String> createAccount({required UserModel userModel}) async {
     try {
       User? user;
-      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
       UserCredential userCredential =
           await firebaseAuth.createUserWithEmailAndPassword(
         email: userModel.email,
@@ -18,8 +21,7 @@ class UserAuthentication {
       );
       await user.reload();
 
-      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-      await firebaseFirestore
+      await firestore
           .collection('users')
           .doc(userModel.email)
           .set(userModel.toJson());
@@ -32,7 +34,6 @@ class UserAuthentication {
   static Future<String> loginToAccount(
       {required String email, required String password}) async {
     try {
-      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
       await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -43,9 +44,31 @@ class UserAuthentication {
     }
   }
 
-  static String get dispalyname =>
-      FirebaseAuth.instance.currentUser!.displayName!;
-  static String get email => FirebaseAuth.instance.currentUser!.email!;
+  static Future<void> logout() async => await firebaseAuth.signOut();
 
-  bool get isVerified => FirebaseAuth.instance.currentUser!.emailVerified;
+  static Future<void> sendVerification() async =>
+      await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+
+  static String get dispalyname => firebaseAuth.currentUser!.displayName!;
+  static String get email => firebaseAuth.currentUser!.email!;
+
+  static bool get isVerified => firebaseAuth.currentUser!.emailVerified;
+
+  // UPDATE USER LOCATION WHICH WAS SET TO NULL WHEN AUTHENTICATING
+
+  static Future<void> updateLocation({required String location}) async {
+    firestore.collection('users').doc(email).update(
+      {
+        'location': location,
+      },
+    );
+  }
+
+  static Future<Map<String, dynamic>?> getuserInformation() async {
+    DocumentSnapshot documentSnapshot =
+        await firestore.collection('users').doc(email).get();
+    Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+
+    return data;
+  }
 }

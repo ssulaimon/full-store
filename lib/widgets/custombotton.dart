@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fullstore/utils/colors.dart';
 
 // ignore: must_be_immutable
 class CustomBotton extends StatelessWidget {

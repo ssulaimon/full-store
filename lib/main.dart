@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,6 @@ import 'package:fullstore/pages/comfirmation.dart';
 import 'package:fullstore/pages/home.dart';
 import 'package:fullstore/pages/loginscreen.dart';
 import 'package:fullstore/pages/onboardinguser.dart';
-import 'package:fullstore/pages/resetpasswordconfirmation.dart';
 import 'package:fullstore/providers/addproductsate.dart';
 import 'package:fullstore/providers/onboardingstate.dart';
 import 'package:fullstore/providers/sidemenuprovider.dart';
@@ -52,7 +53,6 @@ void main() async {
           PagesRoutes.userLogin: (_) => LoginScreen(),
           PagesRoutes.createAccount: (_) => CreateAccount(),
           PagesRoutes.comfirmation: (_) => const Confirmation(),
-          PagesRoutes.resetPassword: (_) => const ResetPasswordConfirmation(),
           PagesRoutes.home: (_) => const Home()
         },
       ),

@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:fullstore/cloudfunctions/userauth.dart';
@@ -123,10 +123,9 @@ pushToCreateAccount({required BuildContext context}) {
 }
 
 resetPassword({required BuildContext context}) {
-  Navigator.pushNamed(
-    context,
-    PagesRoutes.resetPassword,
-  );
+  Navigator.pushNamed(context, PagesRoutes.comfirmation, arguments: {
+    'message': 'Reset link sent. Please check your email to continue'
+  });
 }
 
 login(

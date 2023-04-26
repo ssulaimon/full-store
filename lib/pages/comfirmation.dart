@@ -7,6 +7,8 @@ class Confirmation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map message = ModalRoute.of(context)!.settings.arguments as Map;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -21,9 +23,9 @@ class Confirmation extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Text(
-                      'Your account has been successfuly created',
-                      style: TextStyle(fontSize: 20),
+                    Text(
+                      message['message'],
+                      style: const TextStyle(fontSize: 20),
                     )
                   ],
                 ),

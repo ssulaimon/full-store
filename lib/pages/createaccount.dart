@@ -12,6 +12,7 @@ import 'package:fullstore/widgets/dropdown.dart';
 import 'package:fullstore/widgets/mobiletextform.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class CreateAccount extends StatelessWidget {
   CreateAccount({super.key});
   TextEditingController firstName = TextEditingController();
@@ -146,7 +147,8 @@ createAccount(
       userModel: userModel,
     );
     if (create == 'Account created') {
-      Navigator.pushNamed(context, PagesRoutes.comfirmation);
+      Navigator.pushNamed(context, PagesRoutes.comfirmation,
+          arguments: {'message': 'Your account has been successfuly created'});
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         customSnackBar(

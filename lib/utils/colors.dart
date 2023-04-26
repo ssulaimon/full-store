@@ -6,4 +6,6 @@ class MyColors {
   static Color grey = Colors.grey;
   static Color black = Colors.black;
   static Color lightBlue = const Color(0xFF3C58DC);
+  static Color green = Colors.green;
+  static Color red = Colors.red;
 }

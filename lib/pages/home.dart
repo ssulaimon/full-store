@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fullstore/pages/feeds.dart';
+import 'package:fullstore/pages/profile.dart';
 import 'package:fullstore/widgets/bottomnavstate.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +19,9 @@ class Home extends StatelessWidget {
     ];
     return Consumer<BottomNavState>(builder: (context, bottomNavState, child) {
       return Scaffold(
-        body: Feeds(),
+        body: SafeArea(
+          child: Profile(),
+        ),
         bottomNavigationBar: BottomNavigationBar(
           items: bottomNavItem,
           onTap: (index) {
