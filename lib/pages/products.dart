@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fullstore/providers/selecttable.dart';
+import 'package:fullstore/widgets/dropdown.dart';
 import 'package:fullstore/widgets/productscontainer.dart';
+import 'package:provider/provider.dart';
 
 class Products extends StatelessWidget {
   const Products({super.key});
@@ -7,68 +10,30 @@ class Products extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 20,
-        horizontal: 10,
-      ),
-      child: ListView(
-        children: [
-          const Text(
-            'CATEGORIES',
-            style: TextStyle(fontSize: 30),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
+        padding: const EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 10,
+        ),
+        child: Consumer<SelectTable>(builder: (context, selectTable, child) {
+          return Column(
             children: [
-              ProductsContainer(
-                image: 'assets/vegetable.png',
-                title: 'VEGETABLES',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('CATEGORY'),
+                  CustomDropDown(
+                    validator: (value) {},
+                    hint: "Category",
+                    onchanged: (value) {
+                      selectTable.selectedValue = value;
+                    },
+                    items: selectTable.items,
+                  )
+                ],
               ),
-              const SizedBox(
-                width: 30,
-              ),
-              ProductsContainer(
-                image: 'assets/fruit.png',
-                title: 'FRUIT DRINKS',
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              ProductsContainer(
-                image: 'assets/rice.png',
-                title: 'RICE',
-              )
+              Expanded(child: Container())
             ],
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Row(
-            children: [
-              ProductsContainer(
-                image: 'assets/desserts.png',
-                title: 'DESSERTS',
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              ProductsContainer(
-                image: 'assets/snack.png',
-                title: 'SNACKS ',
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              ProductsContainer(
-                image: 'assets/soda.png',
-                title: 'SODA',
-              ),
-            ],
-          )
-        ],
-      ),
-    );
+          );
+        }));
   }
 }

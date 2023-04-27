@@ -12,7 +12,10 @@ import 'package:fullstore/pages/loginscreen.dart';
 import 'package:fullstore/pages/onboardinguser.dart';
 import 'package:fullstore/providers/addproductsate.dart';
 import 'package:fullstore/providers/onboardingstate.dart';
+import 'package:fullstore/providers/pickedimagestate.dart';
+import 'package:fullstore/providers/selecttable.dart';
 import 'package:fullstore/providers/sidemenuprovider.dart';
+import 'package:fullstore/providers/uploadingitem.dart';
 import 'package:fullstore/providers/usergender.dart';
 import 'package:fullstore/utils/routes.dart';
 import 'package:fullstore/pages/createaccount.dart';
@@ -41,6 +44,15 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => BottomNavState(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PickImageStae(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UploadingItemLoading(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SelectTable(),
         )
       ],
       child: MaterialApp(
