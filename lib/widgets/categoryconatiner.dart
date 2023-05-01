@@ -5,38 +5,47 @@ import 'package:fullstore/utils/colors.dart';
 class CategoriesContainer extends StatelessWidget {
   String image;
   String title;
-  CategoriesContainer({required this.image, required this.title, super.key});
+  Function() onTap;
+
+  CategoriesContainer(
+      {required this.image,
+      required this.title,
+      required this.onTap,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(9),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 2.0,
-                color: MyColors.grey,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.all(9),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 2.0,
+                  color: MyColors.grey,
+                ),
+                borderRadius: BorderRadius.circular(
+                  50,
+                ),
               ),
-              borderRadius: BorderRadius.circular(
-                50,
+              child: Image.asset(
+                image,
+                height: 50,
+                width: 50,
               ),
             ),
-            child: Image.asset(
-              image,
-              height: 50,
-              width: 50,
+            Text(
+              title,
+              style: TextStyle(
+                color: MyColors.black,
+              ),
             ),
-          ),
-          Text(
-            title,
-            style: TextStyle(
-              color: MyColors.black,
-            ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

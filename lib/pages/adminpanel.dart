@@ -20,6 +20,7 @@ class AdminPanel extends StatelessWidget {
       const Sales(),
     ];
     return Scaffold(
+      backgroundColor: MyColors.backgroudColor,
       body: Consumer<SideMenuProvider>(builder: (context, sidemenu, child) {
         return Row(
           children: [

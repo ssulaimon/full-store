@@ -5,6 +5,10 @@ class ItemModel {
   String category;
   String ingredients;
   String image;
+  String? id;
+  String? email;
+  String? address;
+  String? status;
 
   ItemModel({
     required this.category,
@@ -13,6 +17,10 @@ class ItemModel {
     required this.ingredients,
     required this.name,
     required this.price,
+    this.id,
+    this.email,
+    this.address,
+    this.status,
   });
 
   toJson() => {
@@ -22,5 +30,17 @@ class ItemModel {
         'image': image,
         'ingredients': ingredients,
         'description': description,
+      };
+
+  addToOrder() => {
+        'name': name,
+        'price': price,
+        'category': category,
+        'image': image,
+        'ingredients': ingredients,
+        'description': description,
+        'email': email,
+        'address': address,
+        'status': 'pending'
       };
 }
