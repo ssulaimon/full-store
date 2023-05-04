@@ -10,10 +10,12 @@ import 'package:fullstore/pages/comfirmation.dart';
 import 'package:fullstore/pages/home.dart';
 import 'package:fullstore/pages/loginscreen.dart';
 import 'package:fullstore/pages/onboardinguser.dart';
+import 'package:fullstore/pages/shoppinglist.dart';
 import 'package:fullstore/providers/addproductsate.dart';
 import 'package:fullstore/providers/onboardingstate.dart';
 import 'package:fullstore/providers/pickedimagestate.dart';
 import 'package:fullstore/providers/selecttable.dart';
+import 'package:fullstore/providers/shoppinglist.dart';
 import 'package:fullstore/providers/sidemenuprovider.dart';
 import 'package:fullstore/providers/uploadingitem.dart';
 import 'package:fullstore/providers/usergender.dart';
@@ -53,6 +55,12 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => SelectTable(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ShoppingList(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ShoppingLenght(),
         )
       ],
       child: MaterialApp(
@@ -65,7 +73,8 @@ void main() async {
           PagesRoutes.userLogin: (_) => LoginScreen(),
           PagesRoutes.createAccount: (_) => CreateAccount(),
           PagesRoutes.comfirmation: (_) => const Confirmation(),
-          PagesRoutes.home: (_) => const Home()
+          PagesRoutes.home: (_) => const Home(),
+          PagesRoutes.shopping: (_) => const UserShoppingList()
         },
       ),
     ),

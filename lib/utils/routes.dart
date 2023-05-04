@@ -7,4 +7,5 @@ class PagesRoutes {
   static String comfirmation = '/confirmation';
   static String resetPassword = '/resetPasswordConfirmation';
   static String home = '/home';
+  static String shopping = '/shopping';
 }

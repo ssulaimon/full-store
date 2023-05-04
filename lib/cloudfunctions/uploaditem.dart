@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fullstore/cloudfunctions/userauth.dart';
 import 'package:fullstore/models/itemmodel.dart';
+import 'package:fullstore/models/ordermodel.dart';
 
 class UploadItem {
   static FirebaseFirestore get firebaseFirestore => FirebaseFirestore.instance;
@@ -63,5 +65,44 @@ class UploadItem {
       );
     });
     return items;
+  }
+
+  static Future<void> addToOrder({required OrderModel orderModel}) async {
+    firebaseFirestore.collection('orders').add(
+          orderModel.tojson(),
+        );
+  }
+
+  static Future<List<OrderModel>> myOrders() async {
+    List<OrderModel>? items;
+    await firebaseFirestore
+        .collection('orders')
+        .where("email", isEqualTo: UserAuthentication.email)
+        .get()
+        .then((QuerySnapshot querySnapshot) async {
+      List orders = querySnapshot.docs;
+
+      items = List.generate(orders.length, (index) {
+        List products = orders[index]['items'];
+
+        return OrderModel(
+            dateTime: orders[index]['date'],
+            email: orders[index]['email'],
+            items: List.generate(
+                products.length,
+                (index) => ItemModel(
+                    category: products[index]['category'],
+                    description: '',
+                    image: products[index]['image'],
+                    ingredients: '',
+                    name: products[index]['name'],
+                    price: products[index]['price'])),
+            status: orders[index]['status'],
+            transcationId: orders[index]['transcationId']);
+      });
+    });
+    print(items?.length);
+
+    return items!;
   }
 }

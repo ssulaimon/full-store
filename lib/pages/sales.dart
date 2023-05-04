@@ -32,16 +32,16 @@ class Sales extends StatelessWidget {
                   label: Text('Email'),
                 ),
                 DataColumn(
-                  label: Text('Item Name'),
+                  label: Text('Transcation ID'),
                 ),
                 DataColumn(
                   label: Text('Status'),
                 ),
                 DataColumn(
-                  label: Text('Category'),
+                  label: Text('Date'),
                 ),
                 DataColumn(
-                  label: Text('Price'),
+                  label: Text('View Items'),
                 ),
               ],
               rows: [],

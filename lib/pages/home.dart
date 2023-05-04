@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fullstore/pages/feeds.dart';
+import 'package:fullstore/pages/ordersuser.dart';
 import 'package:fullstore/pages/profile.dart';
 import 'package:fullstore/utils/colors.dart';
 import 'package:fullstore/widgets/bottomnavstate.dart';
@@ -10,6 +11,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> screens = [const Feeds(), Profile(), const OrdersUser()];
     List<BottomNavigationBarItem> bottomNavItem = const [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
       BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
@@ -22,8 +24,8 @@ class Home extends StatelessWidget {
     return Consumer<BottomNavState>(builder: (context, bottomNavState, child) {
       return Scaffold(
         backgroundColor: MyColors.backgroudColor,
-        body: const SafeArea(
-          child: Feeds(),
+        body: SafeArea(
+          child: screens[bottomNavState.currentIndex],
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: bottomNavItem,
