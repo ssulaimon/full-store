@@ -8,7 +8,7 @@ class Sales extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: UploadItem.orders(),
+      future: UploadItem.allTranscation(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -17,19 +17,20 @@ class Sales extends StatelessWidget {
             ),
           );
         } else {
+          List<Map> items = snapshot.data as List<Map>;
           return Padding(
             padding: const EdgeInsets.all(20.0),
             child: DataTable(
               border: TableBorder.symmetric(
                   inside: BorderSide(color: MyColors.white)),
-              dividerThickness: 2.0,
+              dataRowColor: MaterialStateProperty.all(MyColors.black),
               headingRowColor: MaterialStateProperty.all(MyColors.lightBlue),
+              decoration: BoxDecoration(color: MyColors.white),
               columns: const [
                 DataColumn(
-                  label: Text('Customer Name'),
-                ),
-                DataColumn(
-                  label: Text('Email'),
+                  label: Text(
+                    'Email',
+                  ),
                 ),
                 DataColumn(
                   label: Text('Transcation ID'),
@@ -44,7 +45,38 @@ class Sales extends StatelessWidget {
                   label: Text('View Items'),
                 ),
               ],
-              rows: [],
+              rows: List.generate(
+                items.length,
+                (index) => DataRow(
+                  cells: [
+                    DataCell(
+                      Text(items[index]["email"],
+                          style: TextStyle(color: MyColors.white)),
+                    ),
+                    DataCell(
+                      Text(items[index]["transaction"],
+                          style: TextStyle(color: MyColors.white)),
+                    ),
+                    DataCell(
+                      Text(items[index]["status"],
+                          style: TextStyle(color: MyColors.white)),
+                    ),
+                    DataCell(
+                      Text(items[index]["date"].toString(),
+                          style: TextStyle(color: MyColors.white)),
+                    ),
+                    DataCell(
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.preview,
+                          color: MyColors.primaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           );
         }

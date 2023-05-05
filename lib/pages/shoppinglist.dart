@@ -5,6 +5,7 @@ import 'package:fullstore/models/itemmodel.dart';
 import 'package:fullstore/models/ordermodel.dart';
 import 'package:fullstore/providers/shoppinglist.dart';
 import 'package:fullstore/utils/colors.dart';
+import 'package:fullstore/utils/routes.dart';
 import 'package:fullstore/widgets/custombotton.dart';
 import 'package:fullstore/widgets/customsnackbar.dart';
 import 'package:provider/provider.dart';
@@ -89,7 +90,10 @@ class UserShoppingList extends StatelessWidget {
                 horizontal: 100,
               ),
               child: CustomBotton(
-                  onTap: () => checkout(items: items.item),
+                  onTap: () => checkout(
+                        items: items.item,
+                        context: context,
+                      ),
                   backgroundColor: MyColors.primaryColor,
                   textColor: MyColors.white,
                   horizontal: 30,
@@ -103,7 +107,10 @@ class UserShoppingList extends StatelessWidget {
   }
 }
 
-void checkout({required List<ItemModel> items}) async {
+void checkout({
+  required List<ItemModel> items,
+  required BuildContext context,
+}) async {
   if (UserAuthentication.isVerified) {
     const uuid = Uuid();
     OrderModel orderModel = OrderModel(
@@ -113,7 +120,9 @@ void checkout({required List<ItemModel> items}) async {
       status: "Pending",
       transcationId: uuid.v1(),
     );
-    UploadItem.addToOrder(orderModel: orderModel);
+    await UploadItem.addToOrder(orderModel: orderModel);
+    Navigator.pushNamed(context, PagesRoutes.comfirmation,
+        arguments: {"message": "Your Order Have Been Placed Successfully"});
   } else {
     customSnackBar(message: 'Please Verify Your account to continue');
   }

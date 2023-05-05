@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fullstore/cloudfunctions/userauth.dart';
 import 'package:fullstore/firebase_options.dart';
 import 'package:fullstore/pages/adminlogin.dart';
 import 'package:fullstore/pages/adminpanel.dart';
@@ -84,6 +85,14 @@ void main() async {
 String deviceType() {
   if (kIsWeb) {
     return PagesRoutes.adminLogin;
+  } else {
+    return checkUser();
+  }
+}
+
+String checkUser() {
+  if (UserAuthentication.firebaseAuth.currentUser != null) {
+    return PagesRoutes.home;
   } else {
     return PagesRoutes.onboarding;
   }

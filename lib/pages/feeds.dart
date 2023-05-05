@@ -18,7 +18,7 @@ class Feeds extends StatefulWidget {
 }
 
 class _FeedsState extends State<Feeds> {
-  String category = "vegetable";
+  String category = "Vegetable";
 
   void changeCategory({required String name}) {
     category = name;
@@ -56,7 +56,7 @@ class _FeedsState extends State<Feeds> {
               scrollDirection: Axis.horizontal,
               children: [
                 CategoriesContainer(
-                  onTap: () => changeCategory(name: 'vegetable'),
+                  onTap: () => changeCategory(name: 'Vegetable'),
                   image: 'assets/vegetable_grey.png',
                   title: 'Vegetable',
                 ),

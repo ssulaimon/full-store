@@ -73,36 +73,56 @@ class UploadItem {
         );
   }
 
-  static Future<List<OrderModel>> myOrders() async {
-    List<OrderModel>? items;
+  static Future<List<Map>> myOrders() async {
+    late List<Map> orders;
     await firebaseFirestore
         .collection('orders')
         .where("email", isEqualTo: UserAuthentication.email)
         .get()
-        .then((QuerySnapshot querySnapshot) async {
-      List orders = querySnapshot.docs;
+        .then((QuerySnapshot querySnapshot) {
+      List item = querySnapshot.docs;
 
-      items = List.generate(orders.length, (index) {
-        List products = orders[index]['items'];
-
-        return OrderModel(
-            dateTime: orders[index]['date'],
-            email: orders[index]['email'],
-            items: List.generate(
-                products.length,
-                (index) => ItemModel(
-                    category: products[index]['category'],
-                    description: '',
-                    image: products[index]['image'],
-                    ingredients: '',
-                    name: products[index]['name'],
-                    price: products[index]['price'])),
-            status: orders[index]['status'],
-            transcationId: orders[index]['transcationId']);
+      orders = List.generate(item.length, (index) {
+        List data = item[index]['items'];
+        Timestamp date = item[index]["date"];
+        return {
+          "email": item[index]['email'],
+          "date": date.toDate(),
+          "transactionId": item[index]["transcationId"],
+          "items": List.generate(
+              data.length,
+              (index) => ItemModel(
+                  category: data[index]["category"],
+                  description: "",
+                  image: data[index]["image"],
+                  ingredients: "",
+                  name: data[index]["name"],
+                  price: data[index]["price"]))
+        };
       });
     });
-    print(items?.length);
 
-    return items!;
+    return orders;
+  }
+
+  static Future<List<Map>> allTranscation() async {
+    late List<Map> transactions;
+    await firebaseFirestore
+        .collection("orders")
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      List items = querySnapshot.docs;
+      transactions = List.generate(items.length, (index) {
+        // List data = items[index]['items'];
+        Timestamp date = items[index]["date"];
+        return {
+          "email": items[index]["email"],
+          "transaction": items[index]["transcationId"],
+          "status": items[index]["status"],
+          "date": date.toDate()
+        };
+      });
+    });
+    return transactions;
   }
 }

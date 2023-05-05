@@ -45,84 +45,80 @@ class _ProductsState extends State<Products> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Expanded(
-                  flex: 1,
-                  child: FutureBuilder(
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        List<ItemModel> items =
-                            snapshot.data as List<ItemModel>;
-                        return DataTable(
-                            border: TableBorder.symmetric(
-                                inside: BorderSide(color: MyColors.white)),
-                            dataRowColor:
-                                MaterialStateProperty.all(MyColors.black),
-                            headingRowColor:
-                                MaterialStateProperty.all(MyColors.lightBlue),
-                            decoration: BoxDecoration(color: MyColors.white),
-                            columns: const [
-                              DataColumn(
-                                label: Text(
-                                  'Product Name',
-                                ),
+                child: FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      List<ItemModel> items = snapshot.data as List<ItemModel>;
+                      return DataTable(
+                          border: TableBorder.symmetric(
+                              inside: BorderSide(color: MyColors.white)),
+                          dataRowColor:
+                              MaterialStateProperty.all(MyColors.black),
+                          headingRowColor:
+                              MaterialStateProperty.all(MyColors.lightBlue),
+                          decoration: BoxDecoration(color: MyColors.white),
+                          columns: const [
+                            DataColumn(
+                              label: Text(
+                                'Product Name',
                               ),
-                              DataColumn(
-                                label: Text(
-                                  'Product Price',
-                                ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Product Price',
                               ),
-                              DataColumn(
-                                label: Text(
-                                  'Description',
-                                ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Description',
                               ),
-                              DataColumn(
-                                label: Text(
-                                  'Action',
-                                ),
-                              )
-                            ],
-                            rows: List.generate(
-                                items.length,
-                                (index) => DataRow(cells: [
-                                      DataCell(Text(
-                                        items[index].name,
-                                        style: TextStyle(color: MyColors.white),
-                                      )),
-                                      DataCell(Text(
-                                        items[index].price,
-                                        style: TextStyle(color: MyColors.white),
-                                      )),
-                                      DataCell(Text(
-                                        items[index].description,
-                                        style: TextStyle(color: MyColors.white),
-                                      )),
-                                      DataCell(
-                                        IconButton(
-                                          onPressed: () async {
-                                            await UploadItem.deleteItem(
-                                              collectionPath:
-                                                  selectTable.selectedValue!,
-                                              id: items[index].id!,
-                                            );
-                                            setState(() {});
-                                          },
-                                          icon: Icon(
-                                            Icons.delete,
-                                            color: MyColors.white,
-                                          ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Action',
+                              ),
+                            )
+                          ],
+                          rows: List.generate(
+                              items.length,
+                              (index) => DataRow(cells: [
+                                    DataCell(Text(
+                                      items[index].name,
+                                      style: TextStyle(color: MyColors.white),
+                                    )),
+                                    DataCell(Text(
+                                      items[index].price,
+                                      style: TextStyle(color: MyColors.white),
+                                    )),
+                                    DataCell(Text(
+                                      items[index].description,
+                                      style: TextStyle(color: MyColors.white),
+                                    )),
+                                    DataCell(
+                                      IconButton(
+                                        onPressed: () async {
+                                          await UploadItem.deleteItem(
+                                            collectionPath:
+                                                selectTable.selectedValue!,
+                                            id: items[index].id!,
+                                          );
+                                          setState(() {});
+                                        },
+                                        icon: Icon(
+                                          Icons.delete,
+                                          color: MyColors.white,
                                         ),
-                                      )
-                                    ])));
-                      }
-                    },
-                    future: UploadItem.getItems(
-                      collectionPath: selectTable.selectedValue.toString(),
-                    ),
+                                      ),
+                                    )
+                                  ])));
+                    }
+                  },
+                  future: UploadItem.getItems(
+                    collectionPath: selectTable.selectedValue.toString(),
                   ),
                 ),
               )
